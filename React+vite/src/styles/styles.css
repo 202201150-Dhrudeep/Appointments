@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .login-page, .dashboard {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .login-form input {
+    margin: 10px;
+    padding: 10px;
+    width: 80%;
+  }
+  
+  button {
+    margin: 5px;
+    padding: 10px;
+  }
+  
+  .request-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 10px;
+    display: inline-block;
+    width: 300px;
+  }
+  
+  .approve-btn {
+    background-color: green;
+    color: white;
+  }
+  
+  .deny-btn {
+    background-color: red;
+    color: white;
+  }
+  
+  
