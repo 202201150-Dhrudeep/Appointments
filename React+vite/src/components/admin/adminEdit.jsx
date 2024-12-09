@@ -97,7 +97,7 @@ export const AdminEdit = () => {
     const fetchAppointments = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/appointments_acc1");
+        const response = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
         const fetchedAppointments = response.data.appoi || [];
         setAppointments(fetchedAppointments);
       } catch (error) {
@@ -114,10 +114,10 @@ export const AdminEdit = () => {
   const handleDelete = async (id) => {
     try {
       console.log(id);
-      const response = await axios.delete(`http://localhost:5000/deleteAppointment/${id}`);
+      const response = await axios.delete(`${config.BACKEND_API || "http://localhost:5000"}/deleteAppointment/${id}`);
       if (response.status === 200) {
         console.log("Deleted successfully");
-        const response = await axios.get("http://localhost:5000/appointments_acc1");
+        const response = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
         const fetchedAppointments = response.data.appoi || [];
         setAppointments(fetchedAppointments);
         navigate("/admin/edit/here");
@@ -150,12 +150,12 @@ export const AdminEdit = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/request", newAppointment, {
+      const response = await axios.post(`${config.BACKEND_API || "http://localhost:5000"}/request`, newAppointment, {
         headers: { "Content-Type": "application/json" },
       });
 
       if (response.status === 200 || response.status === 201) {
-        const resp2 = await axios.get("http://localhost:5000/appointments_acc1");
+        const resp2 = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
         if (resp2.status === 200 || resp2.status === 201) {
           setAppointments(resp2.data.appoi);
         }

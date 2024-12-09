@@ -10,8 +10,10 @@ export const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      
+
       const response = await axios.post(
-        "http://localhost:5000/login",
+        `${config.BACKEND_API || "http://localhost:5000"}/login`,
         { email, pass: password },
         { withCredentials: true }
       );
@@ -147,12 +149,8 @@ export const LoginPage = () => {
           marginTop: "20px",
         }}
       >
-        <p>
-          Kalpesh Dholakiya 
-          </p>
-          <p>
-          Contact: 123-456-7890
-        </p>
+        <p>Kalpesh Dholakiya</p>
+        <p>Contact: 123-456-7890</p>
       </footer>
     </div>
   );

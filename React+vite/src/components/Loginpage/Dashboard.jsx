@@ -11,7 +11,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/appointments");
+        const response = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments`);
         setAppointments(response.data || []);
         setIsLoading(false);
       } catch (error) {
@@ -26,7 +26,7 @@ export const Dashboard = () => {
   // Logout function
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:5000/logout");
+      await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/logout`);
       window.location.href = "/login";
     } catch (error) {
       console.error("Logout error:", error);
@@ -36,9 +36,9 @@ export const Dashboard = () => {
   // Appointment actions
   const handleAccept = async (id) => {
     try {
-      const response = await axios.put("http://localhost:5000/update", { id });
+      const response = await axios.put(`${config.BACKEND_API || "http://localhost:5000"}/update`, { id });
       if (response.status === 200) {
-        const updatedAppointments = await axios.get("http://localhost:5000/appointments");
+        const updatedAppointments = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments`);
         setAppointments(updatedAppointments.data || []);
       } else {
         console.log("Couldn't Update. Try Again");
@@ -50,7 +50,7 @@ export const Dashboard = () => {
 
   const handleReject = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5000/deleteAppointment/${id}`);
+      const response = await axios.delete(`${config.BACKEND_API || "http://localhost:5000"}/deleteAppointment/${id}`);
       if (response.status === 200) {
         setAppointments((prev) => prev.filter((appointment) => appointment._id !== id));
       } else {

@@ -42,7 +42,7 @@ export const MainToAll = () => {
     const fetchAppointments = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("http://localhost:5000/appointments_acc1");
+        const response = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
         const fetchedAppointments = response.data.appoi || [];
         setAppointments(fetchedAppointments);
       } catch (error) {
@@ -70,12 +70,12 @@ export const MainToAll = () => {
     toast.info("Your request is being sent");
 
     try {
-      const response = await axios.post("http://localhost:5000/request", formData, {
+      const response = await axios.post(`${config.BACKEND_API || "http://localhost:5000"}/request`, formData, {
         headers: { "Content-Type": "application/json" },
       });
 
       if (response.status === 200 || response.status === 201) {
-        const resp2 = await axios.get("http://localhost:5000/appointments_acc1");
+        const resp2 = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
         if (resp2.status === 200 || resp2.status === 201) {
           setAppointments(resp2.data.appoi);
         }
