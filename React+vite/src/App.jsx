@@ -4,10 +4,11 @@ import { LoginPage } from './components/Loginpage/LoginPage';
 import { MainToAll } from './components/MainPage/mainToAll';
 import DashBoard from './components/Loginpage/Dashboard';
 import { AdminEdit } from './components/admin/adminEdit';
+import {config} from './config'
 
 export const App = () => {
   return (
-    <Router basename="/barber"> {/* Optional: Use basename for sub-directory hosting */}
+    <Router > {/* Optional: Use basename for sub-directory hosting */}
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route path='/' element={<MainToAll />} />

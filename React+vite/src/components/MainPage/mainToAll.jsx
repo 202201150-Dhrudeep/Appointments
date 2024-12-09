@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
 import axios from "axios";
+import {config} from '../../config.js'
+
 
 export const MainToAll = () => {
   const [appointments, setAppointments] = useState([]);
