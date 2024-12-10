@@ -88,22 +88,25 @@ app.post("/request", async (req, res) => {
         });
         // console.log("1")
 
-        const mailOptions = {
+         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: "jayshree76sharma@gmail.com", // Send request to barber's email
-            subject: "New Appointment Request! Hoorayyy!",
+            to: "kalpeshdholkia1981@gmail.com", 
+            subject: "New Appointment Request!!",
             text: `Hi,
 
-You have a new appointment request:
+તમારી પાસે નવી મુલાકાતની વિનંતી છે:
 
 Name: ${name}
 Work: ${work}
 Time: ${time}
 
-Please respond promptly.
+કૃપા કરીને લિંક પર જાઓ:
+https://appointments-1.onrender.com/login/bhaikaamkarnedashboard
 
-Go to the link:
-https://www.amazon.com
+Regards,
+Amrut Hair Art 
+Kalpesh Dholakiya 
++91 9898548499
 `
         };
         // console.log("2")
