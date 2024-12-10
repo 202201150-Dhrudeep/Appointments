@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import {config} from '../../config.js'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
 
 export const Dashboard = () => {
@@ -36,8 +38,9 @@ export const Dashboard = () => {
   };
 
   // Appointment actions
-  const handleAccept = async (id) => {
+  const handleAccept = async (id,name) => {
     try {
+      toast.info(`Your request is being processed. Sending mail to ${name} as his appointment is accepted.`)
       const response = await axios.put(`${config.BACKEND_API || "http://localhost:5000"}/update`, { id });
       if (response.status === 200) {
         const updatedAppointments = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments`);
@@ -155,7 +158,7 @@ export const Dashboard = () => {
                 <p style={{ margin: "10px 0" }}>Time: {appointment.time}</p>
                 <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
                   <button
-                    onClick={() => handleAccept(appointment._id)}
+                    onClick={() => handleAccept(appointment._id,appointment.name)}
                     style={{
                       backgroundColor: "#1abc9c",
                       color: "#fff",
@@ -204,6 +207,7 @@ export const Dashboard = () => {
         <p>Kalpesh Dholakiya</p>
         <p>Contact: 123-456-7890</p>
       </footer>
+      <ToastContainer />
     </div>
   );
 };

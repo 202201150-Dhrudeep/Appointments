@@ -81,6 +81,7 @@ app.post("/request", async (req, res) => {
                 pass: process.env.EMAIL_PASS, // Use environment variables
             },
         });
+        console.log("1")
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
@@ -100,6 +101,8 @@ Go to the link:
 https://www.amazon.com
 `
         };
+        console.log("2")
+
 
         // Send the email
         transporter.sendMail(mailOptions, async (err, info) => {

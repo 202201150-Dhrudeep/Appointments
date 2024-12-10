@@ -230,7 +230,7 @@ export const MainToAll = () => {
                 <div
                   key={index}
                   style={{
-                    marginBottom: "15px",
+                    marginTop: "15px",
                     padding: "15px",
                     border: "1px solid #ddd",
                     borderRadius: "8px",
