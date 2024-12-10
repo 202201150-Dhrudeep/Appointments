@@ -289,11 +289,11 @@ console.log(tomorrowResponse)
           >
             <option value="">સમય પસંદ કરો</option>
             {timeSlots.map((time, index) =>
-              timeSlotMap[time] === 1 ? (
+               (
                 <option key={index} value={time}>
                   {time}
                 </option>
-              ) : null
+              ) 
             )}
           </select>
           <select
