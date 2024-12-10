@@ -547,7 +547,7 @@ console.log(tomorrowResponse)
               borderRadius: "8px",
             }}
           />
-          <select
+         <select
             name="time"
             value={formData.time}
             onChange={handleInputChange}
@@ -560,11 +560,13 @@ console.log(tomorrowResponse)
             }}
           >
             <option value="">Select Time</option>
-            {timeSlots.map((time, index) => (
-              <option key={index} value={time}>
-                {time}
-              </option>
-            ))}
+            {timeSlots.map((time, index) =>
+              timeSlotMap[time] === 1 ? (
+                <option key={index} value={time}>
+                  {time}
+                </option>
+              ) : null
+            )}
           </select>
           <select
             name="work"
