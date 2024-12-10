@@ -115,18 +115,19 @@ module.exports.update=async (req,res)=>{
               <div class="status">Accepted</div>
               <div class="content">
                 <p>Hi,</p>
-                <p>The request for the following is <strong>Accepted</strong></p>
+                <p>નીચેના માટેની વિનંતી <strong>સ્વીકારવામાં આવી છે</strong></p>
                 <div class="details">
                   <p><strong>Name:</strong> ${appoi.name}</p>
                   <p><strong>Time:</strong> ${appoi.time}</p>
                   <p><strong>Work:</strong> ${appoi.work}</p>
                 </div>
-                <p>Please reach Amrut Hair Art at your designated time.</p>
+                <p>કૃપા કરીને તમારા નિર્ધારિત સમયે અમૃત હેર આર્ટ પર પહોંચો.</p>
               </div>
               <div >
                 <p>Thank you,<br>
                 Amrut Hair Art<br>
-                Kalpeshkumar Dholakiya</p>
+                Kalpeshkumar Dholakiya<br>
+                +91 9898548499</p>
               </div>
             </div>
           </body>
