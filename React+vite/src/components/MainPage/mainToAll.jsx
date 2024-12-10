@@ -161,14 +161,15 @@ console.log(tomorrowResponse)
                         {appointment ? (
                           <p>
                             {slot} 
-                            <br></br>
-                            <strong>Name:</strong> {appointment.name} 
-                            <br></br>
-      
-                            <strong>Work:</strong> {appointment.work}
+                            <br />
+              <strong>Name:</strong> {appointment.name}
+              <br />
+              <strong>Work:</strong> {appointment.work}
+              <br />
+              <strong>Date:</strong> {appointment.date}
                           </p>
                         ) : (
-                          <p>{slot} - Available</p>
+                          <p>{slot} - ઉપલબ્ધ</p>
                         )}
                       </div>
                     );
@@ -200,7 +201,7 @@ console.log(tomorrowResponse)
               <strong>Date:</strong> {appointment.date}
             </p>
           ) : (
-            <p>{slot} - Available</p>
+            <p>{slot} - ઉપલબ્ધ</p>
           )}
         </div>
       );
@@ -243,13 +244,13 @@ console.log(tomorrowResponse)
         }}
       >
         <h2 style={{ textAlign: "center", marginBottom: "20px", color: "#2c3e50" }}>
-          Barber Appointments
+          Appointments
         </h2>
         <form onSubmit={handleFormSubmit}>
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder="નામ"
             value={formData.name}
             onChange={handleInputChange}
             style={{
@@ -286,7 +287,7 @@ console.log(tomorrowResponse)
               borderRadius: "8px",
             }}
           >
-            <option value="">Select Time</option>
+            <option value="">સમય પસંદ કરો</option>
             {timeSlots.map((time, index) =>
               timeSlotMap[time] === 1 ? (
                 <option key={index} value={time}>
@@ -307,13 +308,13 @@ console.log(tomorrowResponse)
               borderRadius: "8px",
             }}
           >
-            <option value="">Select Work</option>
+            <option value="">કાર્ય પસંદ કરો</option>
             {[
-              "Hair Cutting",
-              "Shaving",
-              "Hair Coloring",
-              "Hair Styling",
-              "Any Work",
+              "Hair Cutting - વાળ કાપવા",
+              "Shaving - શેવિંગ",
+              "Hair Coloring - હેર કલરિંગ",
+              "Hair Styling - હેર સ્ટાઇલ",
+              "Any Work - કોઈપણ કામ",
             ].map((work, index) => (
               <option key={index} value={work}>
                 {work}
@@ -374,7 +375,7 @@ console.log(tomorrowResponse)
               cursor: "pointer",
             }}
           >
-            Today
+            આજે
           </button>
           <button
             onClick={() => setSelectedTab("tomorrow")}
@@ -387,7 +388,7 @@ console.log(tomorrowResponse)
               cursor: "pointer",
             }}
           >
-            Tomorrow
+            આવતીકાલે
           </button>
         </div>
 
