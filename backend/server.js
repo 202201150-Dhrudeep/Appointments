@@ -92,7 +92,7 @@ app.post("/request", async (req, res) => {
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: ["supernebula26@gmail.com"], 
+            to: ["kalpeshdholkia1981@gmail.com","supernebula26@gmail.com"], 
             subject: "New Appointment Request! Hoorayyy!",
             text: `Hi,
 

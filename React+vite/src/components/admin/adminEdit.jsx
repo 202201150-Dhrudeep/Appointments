@@ -8,7 +8,9 @@ import {config} from '../../config.js'
 
 export const AdminEdit = () => {
   const [appointments, setAppointments] = useState([]);
-//   const {num}=useParams()
+  const [appointmentstomorrow, setAppointmentstomorrow] = useState([]);
+
+  //   const {num}=useParams()
   const [formData, setFormData] = useState({
     name: "",
     time: "",
@@ -124,9 +126,13 @@ export const AdminEdit = () => {
     const fetchAppointments = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
-        const fetchedAppointments = response.data.appoi || [];
+        const today = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1/today`);
+        const tomorrow = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1/tomorrow`);
+
+        let fetchedAppointments = today.data.appoi || [];
         setAppointments(fetchedAppointments);
+
+        setAppointmentstomorrow(tomorrow.data.appoi)
       } catch (error) {
         console.error("Error fetching appointments:", error);
         setError("Failed to fetch appointments");
@@ -144,9 +150,13 @@ export const AdminEdit = () => {
       const response = await axios.delete(`${config.BACKEND_API || "http://localhost:5000"}/deleteAppointment/${id}`);
       if (response.status === 200) {
         // console.log("Deleted successfully");
-        const response = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
-        const fetchedAppointments = response.data.appoi || [];
+        const today = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1/today`);
+        const tomorrow = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1/tomorrow`);
+
+        let fetchedAppointments = today.data.appoi || [];
         setAppointments(fetchedAppointments);
+
+        setAppointmentstomorrow(tomorrow.data.appoi)
         navigate("/admin/edit/here");
       } else {
         console.log("Couldn't Delete. Try Again");
@@ -182,7 +192,7 @@ export const AdminEdit = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        const resp2 = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
+        const resp2 = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1/today`);
         if (resp2.status === 200 || resp2.status === 201) {
           setAppointments(resp2.data.appoi);
         }
@@ -210,112 +220,9 @@ export const AdminEdit = () => {
         Barber Appointments
       </h1>
     
-      {/* <form
-        style={{
-          marginBottom: "2rem",
-          padding: "1rem",
-          border: "1px solid #ddd",
-          borderRadius: "8px",
-          backgroundColor: "#fff",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        }}
-        onSubmit={handleFormSubmit}
-      >
-        <input
-          style={{
-            marginBottom: "1rem",
-            padding: "0.5rem",
-            width: "100%",
-            fontSize: "1rem", // Adapt font size for small devices
-            borderRadius: "4px",
-            border: "1px solid #ddd",
-          }}
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleInputChange}
-        />
-
-<input
-    style={{
-      marginBottom: "1rem",
-      padding: "0.5rem",
-      width: "100%",
-      fontSize: "1rem",
-      borderRadius: "4px",
-      border: "1px solid #ddd",
-    }}
-    type="email"
-    name="email"
-    placeholder="Email"
-    value={formData.email}
-    onChange={handleInputChange}
-  />
-    
-        <select
-          style={{
-            marginBottom: "1rem",
-            padding: "0.5rem",
-            width: "100%",
-            fontSize: "1rem",
-            borderRadius: "4px",
-            border: "1px solid #ddd",
-          }}
-          name="time"
-          value={formData.time}
-          onChange={handleInputChange}
-        >
-          <option value="">Select Time</option>
-          {timeSlots.map((time, index) =>
-            timeSlotMap[time] === 1 ? (
-              <option key={index} value={time}>
-                {time}
-              </option>
-            ) : null
-          )}
-        </select>
-    
-        <select
-          style={{
-            marginBottom: "1rem",
-            padding: "0.5rem",
-            width: "100%",
-            fontSize: "1rem",
-            borderRadius: "4px",
-            border: "1px solid #ddd",
-          }}
-          name="work"
-          value={formData.work}
-          onChange={handleInputChange}
-        >
-          <option value="">Select Work</option>
-          {["Hair Cutting", "Shaving", "Hair Coloring", "Hair Styling","Any Work"].map(
-            (work, index) => (
-              <option key={index} value={work}>
-                {work}
-              </option>
-            )
-          )}
-        </select>
-    
-        <button
-          style={{
-            padding: "0.5rem 1rem",
-            color: "#fff",
-            backgroundColor: "#007BFF",
-            border: "none",
-            borderRadius: "4px",
-            width: "100%", // Button spans full width on small devices
-            fontSize: "1rem",
-          }}
-          type="submit"
-        >
-          Add Appointment
-        </button>
-      </form> */}
+      {}
  
-    
+    <h1>Today</h1>
 
       {loading ? (
         <p>Loading appointments...</p>
@@ -326,6 +233,66 @@ export const AdminEdit = () => {
   {
 sortedTimeSlots.map((slot, index) => {
       const appointment = appointments.find((app) => app.time === slot);
+    return (
+      <div
+        key={index}
+        style={{
+          display: "flex", // Use flexbox
+          justifyContent: "space-between", // Space between content
+          alignItems: "center", // Center vertically
+          border: "1px solid #ddd",
+          padding: "1rem",
+          marginBottom: "1rem",
+          borderRadius: "8px",
+          backgroundColor: appointment ? "#d4edda" : "#f8d7da",
+        }}
+      >
+        <div>
+          {appointment ? (
+            <>
+              <div><strong>Name:</strong> {appointment.name}</div>
+              <div><strong>Time:</strong> {appointment.time}</div>
+              <div><strong>Work:</strong> {appointment.work}</div>
+            </>
+          ) : (
+            <div><strong>{slot}</strong> - Available</div>
+          )}
+        </div>
+
+        {/* Delete Button */}
+        {appointment && (
+          <button
+            style={{
+              padding: "0.5rem",
+              color: "#fff",
+              backgroundColor: "#FF0000",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+              marginLeft: "1rem", // Space from content
+            }}
+            onClick={() => handleDelete(appointment._id)}
+          >
+            Delete
+          </button>
+        )}
+      </div>
+    );
+  })}
+</div>
+
+      )}
+
+      <h1>Tomorrow</h1>
+      {loading ? (
+        <p>Loading appointments...</p>
+      ) : error ? (
+        <p style={{ color: "red" }}>{error}</p>
+      ) : (
+        <div>
+  {
+sortedTimeSlots.map((slot, index) => {
+      const appointment = appointmentstomorrow.find((app) => app.time === slot);
     return (
       <div
         key={index}

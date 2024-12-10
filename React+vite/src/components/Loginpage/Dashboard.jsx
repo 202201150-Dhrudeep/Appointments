@@ -132,6 +132,8 @@ export const Dashboard = () => {
           Appointment Dashboard
         </h2>
 
+        <h1>Today</h1>
+
         {isLoading ? (
           <p style={{ textAlign: "center", color: "#888" }}>Loading appointments...</p>
         ) : appointments.length > 0 ? (
@@ -142,7 +144,70 @@ export const Dashboard = () => {
               gap: "30px",
             }}
           >
-            {appointments.map((appointment) => (
+            {appointments.map((appointment) => appointment.date==="Today"&&(
+              <div
+                key={appointment._id}
+                style={{
+                  backgroundColor: "#fff",
+                  padding: "20px",
+                  borderRadius: "12px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                  textAlign: "center",
+                }}
+              >
+                <h3 style={{ fontSize: "24px", fontWeight: "bold" }}>{appointment.name}</h3>
+                <p style={{ margin: "10px 0" }}>Work: {appointment.work}</p>
+                <p style={{ margin: "10px 0" }}>Time: {appointment.time}</p>
+                <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                  <button
+                    onClick={() => handleAccept(appointment._id,appointment.name)}
+                    style={{
+                      backgroundColor: "#1abc9c",
+                      color: "#fff",
+                      padding: "10px 15px",
+                      borderRadius: "8px",
+                      border: "none",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    onClick={() => handleReject(appointment._id)}
+                    style={{
+                      backgroundColor: "#e74c3c",
+                      color: "#fff",
+                      padding: "10px 15px",
+                      borderRadius: "8px",
+                      border: "none",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Reject
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p style={{ textAlign: "center", color: "#888" }}>No appointments found.</p>
+        )}
+
+
+<h1>Tomorrow</h1>
+{isLoading ? (
+          <p style={{ textAlign: "center", color: "#888" }}>Loading appointments...</p>
+        ) : appointments.length > 0 ? (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+              gap: "30px",
+            }}
+          >
+            {appointments.map((appointment) => appointment.date==="Tomorrow"&&(
               <div
                 key={appointment._id}
                 style={{
