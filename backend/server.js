@@ -23,24 +23,20 @@ const PORT = process.env.PORT||5000;
 
 const _dirname=path.resolve()
 
-cron.schedule('57 1 * * *', async () => {
+cron.schedule('0 0 * * *', async () => {
     try{
-        const deleted=await Appointment.deleteMany({date:"Today"})
-        // console.log("Successfullt deleted entries")
-
-
-        const update=await Appointment.updateMany({date:"Tomorrow"},{date:"Today"})
-
-        // console.log("Success updating",update)
-
-    }catch(err){
-        console.error("Error deleting entries")
-    }
-  });
-app.use(cors({
-    origin: 'http://localhost:5000', // Replace with your frontend URL
-    credentials: true, // Allow cookies to be sent with requests
-}));
+                const deleted=await Appointment.deleteMany({date:"Today"})
+                // console.log("Successfullt deleted entries")
+        
+        
+                const update=await Appointment.updateMany({date:"Tomorrow"},{date:"Today"})
+        
+                // console.log("Success updating",update)
+        
+            }catch(err){
+                console.error("Error deleting entries")
+            }
+          });
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true,
     useUnifiedTopology: true,})
