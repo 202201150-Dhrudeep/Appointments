@@ -27,16 +27,16 @@ app.use(cors({
 
 module.exports.login = (req, res) => {
     try {
-        console.log("Login request received");
+        // console.log("Login request received");
 
         const { email, pass } = req.body;
-        console.log(email, pass);
+        // console.log(email, pass);
 
         if (email === "hi@gmail.com" && pass === "12") {
-            console.log("Login successful");
+            // console.log("Login successful");
 
             const token = jwt.sign({ email, pass }, "secret");
-            console.log("token",token)
+            // console.log("token",token)
             res.cookie("token", token, {
                 httpOnly: true,
                 secure: false, // Change to `true` in production with HTTPS
@@ -44,7 +44,7 @@ module.exports.login = (req, res) => {
             });
             res.status(200).json({ message: "Login Successful" });
         } else {
-            console.log("Invalid credentials");
+            // console.log("Invalid credentials");
             res.status(401).json({ message: "Invalid credentials" });
         }
     } catch (err) {

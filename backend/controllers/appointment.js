@@ -10,9 +10,9 @@ const Appointment = require('../Models/Appointment')
 
 module.exports.approved_appointments=async (req,res)=>{
     try{
-        console.log("acce")
+        // console.log("acce")
         const appoi=await AppointModel.find({accepted:1})
-        console.log("Yyayyy")
+        // console.log("Yyayyy")
         res.status(200).json({message:"All approved appointments",appoi})
 
     }catch(err){
@@ -22,16 +22,16 @@ module.exports.approved_appointments=async (req,res)=>{
 
 module.exports.update=async (req,res)=>{
     try{
-        console.log("Majja")
+        // console.log("Majja")
         const {id}=req.body
-        console.log(id)
+        // console.log(id)
         const appoi=await Appointment.findByIdAndUpdate({_id:id},{accepted:true},{new:true})
         // appoi.accepted=true
-        console.log("hii",appoi)
+        // console.log("hii",appoi)
         // await appoi.save()
 
-        console.log("hehee",appoi.time)
-        console.log("email",appoi.email)
+        // console.log("hehee",appoi.time)
+        // console.log("email",appoi.email)
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -42,7 +42,7 @@ module.exports.update=async (req,res)=>{
             },
         });
 
-        console.log("1")
+        // console.log("1")
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
@@ -129,7 +129,7 @@ module.exports.update=async (req,res)=>{
       `,
         };
 
-        console.log("2")
+        // console.log("2")
 
 
         // Send the email
@@ -139,11 +139,11 @@ module.exports.update=async (req,res)=>{
                 return res.status(500).json({ message: "Failed to send mail" });
             }
 
-            console.log("Mail sent:", info.response);
+            // console.log("Mail sent:", info.response);
             res.status(200).json({message:"Updated",time:appoi.time})
         })
 
-        console.log("3")
+        // console.log("3")
 
 
 
@@ -156,19 +156,19 @@ module.exports.delete=async(req,res)=>{
     try{
         // const {id} =req.params
         // console.log(id)
-        console.log("Jjj")
+        // console.log("Jjj")
         const appoi=await Appointment.deleteOne({_id:req.params.id})
-        console.log("Deleetetttetet",appoi)
+        // console.log("Deleetetttetet",appoi)
 
         if (appoi.deletedCount === 0)
         {
-            console.log("hatt")
+            // console.log("hatt")
 
             res.status(500).json({message:"Couldn't Delete"})
         }
         else
         {
-            console.log("Deleetetttetet")
+            // console.log("Deleetetttetet")
 
             res.status(200).json({message:"Deleted"})
         }

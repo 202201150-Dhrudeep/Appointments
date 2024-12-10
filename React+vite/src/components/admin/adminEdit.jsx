@@ -115,10 +115,10 @@ export const AdminEdit = () => {
 
   const handleDelete = async (id) => {
     try {
-      console.log(id);
+      // console.log(id);
       const response = await axios.delete(`${config.BACKEND_API || "http://localhost:5000"}/deleteAppointment/${id}`);
       if (response.status === 200) {
-        console.log("Deleted successfully");
+        // console.log("Deleted successfully");
         const response = await axios.get(`${config.BACKEND_API || "http://localhost:5000"}/appointments_acc1`);
         const fetchedAppointments = response.data.appoi || [];
         setAppointments(fetchedAppointments);

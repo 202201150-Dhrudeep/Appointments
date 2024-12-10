@@ -27,8 +27,8 @@ app.use(cors({
 
 module.exports.logged = async (req, res, next) => {
     try {
-        console.log("Isloggedin")
-        console.log(req.cookies)
+        // console.log("Isloggedin")
+        // console.log(req.cookies)
 
         const token = req.cookies.token;
         if (!token) {

@@ -51,10 +51,10 @@ app.delete("/deleteAppointment/:id", app_Controller.delete)
 // Get all appointments
 app.get("/appointments", async (req, res) => {
     try {
-        console.log("mongo" ,process.env.MONGO_URI)
-        console.log("Hii appointments")
+        // console.log("mongo" ,process.env.MONGO_URI)
+        // console.log("Hii appointments")
         const appointments = await Appointment.find({ accepted: false });
-        console.log("appoi", appointments)
+        // console.log("appoi", appointments)
         res.status(200).json(appointments);
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -63,7 +63,7 @@ app.get("/appointments", async (req, res) => {
 
 // Add a new appointment
 app.post("/request", async (req, res) => {
-    console.log("Heyyya")
+    // console.log("Heyyya")
     const { name, time, work,email } = req.body;
 
     if (!name || !time || !work) {
@@ -71,7 +71,7 @@ app.post("/request", async (req, res) => {
     }
 
     try {
-        console.log("Started sending mail");
+        // console.log("Started sending mail");
 
         const transporter = nodemailer.createTransport({
             service: "gmail",
@@ -81,7 +81,7 @@ app.post("/request", async (req, res) => {
                 pass: process.env.EMAIL_PASS, // Use environment variables
             },
         });
-        console.log("1")
+        // console.log("1")
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
@@ -101,7 +101,7 @@ Go to the link:
 https://www.amazon.com
 `
         };
-        console.log("2")
+        // console.log("2")
 
 
         // Send the email
@@ -111,7 +111,7 @@ https://www.amazon.com
                 return res.status(500).json({ message: "Failed to send mail" });
             }
 
-            console.log("Mail sent:", info.response);
+            // console.log("Mail sent:", info.response);
 
             // Simulate barber's response (accept/reject)
             //   const isAccepted = Math.random() > 0.5; // Simulate random response
