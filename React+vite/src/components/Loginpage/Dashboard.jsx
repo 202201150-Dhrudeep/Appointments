@@ -124,7 +124,7 @@ export const Dashboard = () => {
               fontWeight: "bold",
             }}
           >
-            Edit Appointments
+           એપોઇન્ટમેન્ટમાં ફેરફાર કરો
           </button>
         </div>
 
@@ -132,7 +132,7 @@ export const Dashboard = () => {
           Appointment Dashboard
         </h2>
 
-        <h1>Today</h1>
+        <h1>આજે</h1>
 
         {isLoading ? (
           <p style={{ textAlign: "center", color: "#888" }}>Loading appointments...</p>
@@ -192,11 +192,11 @@ export const Dashboard = () => {
             ))}
           </div>
         ) : (
-          <p style={{ textAlign: "center", color: "#888" }}>No appointments found.</p>
+          <p style={{ textAlign: "center", color: "#888" }}>કોઈ appointments મળી નથી.</p>
         )}
 
 
-<h1>Tomorrow</h1>
+<h1>આવતીકાલે</h1>
 {isLoading ? (
           <p style={{ textAlign: "center", color: "#888" }}>Loading appointments...</p>
         ) : appointments.length > 0 ? (
@@ -255,7 +255,7 @@ export const Dashboard = () => {
             ))}
           </div>
         ) : (
-          <p style={{ textAlign: "center", color: "#888" }}>No appointments found.</p>
+          <p style={{ textAlign: "center", color: "#888" }}>કોઈ appointments મળી નથી.</p>
         )}
       </main>
 
