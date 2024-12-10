@@ -26,6 +26,11 @@ module.exports.update=async (req,res)=>{
         const {id}=req.body
         // console.log(id)
         const appoi=await Appointment.findByIdAndUpdate({_id:id},{accepted:true},{new:true})
+        // console.log("First padhav")
+
+        await Appointment.deleteMany({time:appoi.time,accepted:false})
+        // console.log("Second padhav")
+
         // appoi.accepted=true
         // console.log("hii",appoi)
         // await appoi.save()

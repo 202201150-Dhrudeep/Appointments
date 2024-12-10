@@ -205,7 +205,7 @@ export const Dashboard = () => {
         }}
       >
         <p>Kalpesh Dholakiya</p>
-        <p>Contact: 123-456-7890</p>
+        <p>Contact: +91 9898548499</p>
       </footer>
       <ToastContainer />
     </div>

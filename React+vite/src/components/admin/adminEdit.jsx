@@ -27,6 +27,32 @@ export const AdminEdit = () => {
     "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM", "10:30 PM",
     "11:00 PM"
   ];
+  const convertTo24HourFormat = (timeStr) => {
+    const [time, modifier] = timeStr.split(" ");
+    let [hours, minutes] = time.split(":").map(Number);
+    if (modifier === "PM" && hours !== 12) hours += 12;
+    if (modifier === "AM" && hours === 12) hours = 0;
+    return { hours, minutes };
+  };
+
+  
+
+  const sortedTimeSlots = useMemo(() => {
+    const now = new Date();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const currentTimeInMinutes = currentHour * 60 + currentMinute;
+
+    const mappedSlots = timeSlots.map((slot) => {
+      const { hours, minutes } = convertTo24HourFormat(slot);
+      return { time: slot, totalMinutes: hours * 60 + minutes };
+    });
+
+    const upcoming = mappedSlots.filter(({ totalMinutes }) => totalMinutes >= currentTimeInMinutes);
+    // const past = mappedSlots.filter(({ totalMinutes }) => totalMinutes < currentTimeInMinutes);
+
+    return [...upcoming].map(({ time }) => time);
+  }, [timeSlots]);
 
   const timeSlotMap = useMemo(() => {
     const map = timeSlots.reduce((acc, time) => {
@@ -34,9 +60,8 @@ export const AdminEdit = () => {
       return acc;
     }, {});
 
-    // Mark time slots as unavailable based on appointments
     appointments.forEach((app) => {
-      map[app.time] = 0; // Mark as unavailable
+      map[app.time] = 0; 
     });
 
     return map;
@@ -298,8 +323,9 @@ export const AdminEdit = () => {
         <p style={{ color: "red" }}>{error}</p>
       ) : (
         <div>
-  {timeSlots.map((slot, index) => {
-    const appointment = appointments.find((app) => app.time === slot);
+  {
+sortedTimeSlots.map((slot, index) => {
+      const appointment = appointments.find((app) => app.time === slot);
     return (
       <div
         key={index}
