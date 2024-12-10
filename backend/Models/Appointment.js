@@ -19,8 +19,12 @@ const AppointmentSchema = new mongoose.Schema({
   },
   email: {  // Added email field
     type: String,
-    required: true,  // You can choose whether it should be required
+    // required: true,  // You can choose whether it should be required
   },
+  date:{
+    type:String,
+    required:true,
+  }
 });
 
 module.exports = mongoose.model("Appointment", AppointmentSchema);

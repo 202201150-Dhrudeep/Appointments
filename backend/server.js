@@ -23,17 +23,22 @@ const PORT = process.env.PORT||5000;
 
 const _dirname=path.resolve()
 
-cron.schedule('0 0 * * *', async () => {
+cron.schedule('57 1 * * *', async () => {
     try{
-        const deleted=await Appointment.deleteMany({})
-        console.log("Successfullt deleted entries")
+        const deleted=await Appointment.deleteMany({date:"Today"})
+        // console.log("Successfullt deleted entries")
+
+
+        const update=await Appointment.updateMany({date:"Tomorrow"},{date:"Today"})
+
+        // console.log("Success updating",update)
 
     }catch(err){
         console.error("Error deleting entries")
     }
   });
 app.use(cors({
-    origin: 'http://localhost:5173', // Replace with your frontend URL
+    origin: 'http://localhost:5000', // Replace with your frontend URL
     credentials: true, // Allow cookies to be sent with requests
 }));
 // Connect to MongoDB
@@ -49,7 +54,8 @@ mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true,
 // Routes
 app.post("/login", loginController.login);
 app.get("/logout", loginController.logout)
-app.get("/appointments_acc1", app_Controller.approved_appointments)
+app.get("/appointments_acc1/today", app_Controller.app_today)
+app.get("/appointments_acc1/tomorrow", app_Controller.app_tmw)
 app.put("/update", app_Controller.update)
 app.delete("/deleteAppointment/:id", app_Controller.delete)
 
@@ -69,9 +75,9 @@ app.get("/appointments", async (req, res) => {
 // Add a new appointment
 app.post("/request", async (req, res) => {
     // console.log("Heyyya")
-    const { name, time, work,email } = req.body;
+    const { name, time, work,email,date } = req.body;
 
-    if (!name || !time || !work) {
+    if (!name || !time || !work ||!date) {
         return res.status(400).json({ message: "All fields are required" });
     }
 
@@ -90,7 +96,7 @@ app.post("/request", async (req, res) => {
 
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            to: "jayshree76sharma@gmail.com", // Send request to barber's email
+            to: ["supernebula26@gmail.com"], 
             subject: "New Appointment Request! Hoorayyy!",
             text: `Hi,
 
@@ -99,11 +105,15 @@ You have a new appointment request:
 Name: ${name}
 Work: ${work}
 Time: ${time}
+Date:${date}
 
-Please respond promptly.
+કૃપા કરીને લિંક પર જાઓ:
+https://appointments-1.onrender.com/login/bhaikaamkarnedashboard
 
-Go to the link:
-https://www.amazon.com
+Regards,
+Amrut Hair Art 
+Kalpesh Dholakiya 
++91 9898548499
 `
         };
         // console.log("2")
@@ -121,7 +131,7 @@ https://www.amazon.com
             // Simulate barber's response (accept/reject)
             //   const isAccepted = Math.random() > 0.5; // Simulate random response
 
-            const newAppointment = new Appointment({ name, time, work,email });
+            const newAppointment = new Appointment({ name, time, work,email,date });
             const savedAppointment = await newAppointment.save();
             return res.status(201).json({ status: "accepted", appointment: savedAppointment });
 

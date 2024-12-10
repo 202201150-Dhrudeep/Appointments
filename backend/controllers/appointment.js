@@ -7,6 +7,29 @@ const jwt=require('jsonwebtoken')
 const cookieParser=require('cookie-parser')
 const AppointModel=require("../Models/Appointment")
 const Appointment = require('../Models/Appointment')
+module.exports.app_today=async (req,res)=>{
+  try{
+      // console.log("today")
+      const appoi=await AppointModel.find({accepted:1,date:"Today"})
+      // console.log("Yyayyy")
+      res.status(200).json({message:"All approved appointments",appoi})
+
+  }catch(err){
+      res.status(500).json({error:"Error in fetching appointments"})
+  }
+}
+module.exports.app_tmw=async (req,res)=>{
+try{
+    // console.log("tmw")
+    const appoi=await AppointModel.find({accepted:1,date:"Tomorrow"})
+    // console.log("Yyayyy")
+    res.status(200).json({message:"All approved appointments",appoi})
+
+}catch(err){
+    res.status(500).json({error:"Error in fetching appointments"})
+}
+}
+
 
 module.exports.approved_appointments=async (req,res)=>{
     try{
