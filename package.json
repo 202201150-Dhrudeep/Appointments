@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon server.js",
-    "build" :"npm i"
+    "dev":"nodemon backend/server.js",
+    "build" :"npm install && npm install --prefix React+vite && npm run build --prefix React+vite",
+    "start" :"nodemon backend/server.js"
+
    
   },
   "keywords": [],

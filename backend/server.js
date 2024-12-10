@@ -9,6 +9,7 @@ const nodemailer = require("nodemailer");
 const loginController = require("./controllers/Login")
 const app_Controller = require("./controllers/appointment")
 const { logged } = require("./middleware/isLogged")
+const path=require("path")
 const app = express();
 
 dotenv.config();
@@ -18,6 +19,8 @@ app.use(bodyParser.json());
 app.use(express.json())
 app.use(cookieParser())
 const PORT = process.env.PORT||5000;
+
+const _dirname=path.resolve()
 
 
 
@@ -125,6 +128,11 @@ https://www.amazon.com
         res.status(500).json({ message: err.message });
     }
 });
+
+app.use(express.static(path.join(_dirname,"/React+vite/dist")))
+app.get('*',(req,res)=>{
+    res.sendFile(path.resolve(_dirname,"React+vite","dist","index.html"))
+})
 
 // Start the server
 app.listen(PORT, () => {
