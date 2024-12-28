@@ -23,7 +23,7 @@ const PORT = process.env.PORT||5000;
 
 const _dirname=path.resolve()
 
-cron.schedule('20 13 * * *', async () => {
+cron.schedule('30 13 * * *', async () => {
     try{
                 const deleted=await Appointment.deleteMany({date:"Today"})
                 // console.log("Successfullt deleted entries")
