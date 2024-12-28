@@ -291,7 +291,7 @@ sortedTimeSlots.map((slot, index) => {
       ) : (
         <div>
   {
-sortedTimeSlots.map((slot, index) => {
+timeSlots.map((slot, index) => {
       const appointment = appointmentstomorrow.find((app) => app.time === slot);
     return (
       <div
